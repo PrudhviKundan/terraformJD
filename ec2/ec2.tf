@@ -1,9 +1,20 @@
+#aws_instance - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance
+resource "aws_instance" "terraform" {
+    ami                     = "ami-0220d79f3f480ecf5"
+    instance_type           = "t3.micro"
+    vpc_security_group_ids  = [aws_security_group.allow_ssh_terraform.id]
+    tags = {
+        Name = "terraform"
+    }
+}
+
+#aws_security_group
 resource "aws_security_group" "allow_ssh_terraform" {
   name        = "allow_ssh" #allow_ssh is already exists
   description = "Allow port number 22 for SSH access"
 
   tags = {
-    Name = "allow_ssh"
+    Name = "allow_sssh"
   }
 
   #usuall allow everything in egress- outgoing traffic
